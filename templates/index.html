@@ -1,0 +1,25 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Dahlia Matrix</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+  <canvas id="matrix"></canvas>
+
+  <div class="overlay">
+    <p class="main-text">Welcome to Goddess Dahlia World</p>
+    <p class="sub-text">DAHLIAWARE V3</p>
+    <button id="click-button">CLICK</button>
+    <p class="hint-text">to become obsessed with DAHLIA</p>
+    <div id="counter">0</div>
+  </div>
+
+  <audio id="dahliaAudio" src="{{ url_for('static', filename='audio/dahlia.mp3') }}"></audio>
+  <div class="image-container" id="imageContainer"></div>
+
+  <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
