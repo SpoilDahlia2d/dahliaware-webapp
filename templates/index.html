@@ -2,62 +2,22 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Goddess Dahlia World</title>
-  <link rel="stylesheet" href="/static/css/style.css" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
-
-  <!-- Effetto Matrix -->
   <canvas id="matrix"></canvas>
 
-  <!-- Testo Centrale -->
-  <div class="overlay">
-    <button id="clickButton">CLICK</button>
-    <p class="subtext">to become obsessed with DAHLIA</p>
-    <p class="ip-text">Your IP: {{ ip }}</p>
+  <div class="center-text" id="main-text">
+    <button id="clickBtn">CLICK</button>
+    <p class="sub">To become obsessed with DAHLIA</p>
+    <p class="ip">your IP: {{ ip }}</p>
   </div>
 
-  <!-- Audio personalizzato -->
-  <audio id="audio" src="/static/audio/dahlia.mp3"></audio>
+  <div id="image-container"></div>
+  <audio id="audio" src="{{ url_for('static', filename='audio/voice.mp3') }}"></audio>
 
-  <!-- Contenitore immagini popup -->
-  <div id="imageContainer" class="image-container"></div>
-
-  <!-- Script -->
-  <script src="/static/js/script.js"></script>
-
-  <!-- Matrix Effect Script -->
-  <script>
-    const canvas = document.getElementById("matrix");
-    const ctx = canvas.getContext("2d");
-
-    canvas.height = window.innerHeight;
-    canvas.width = window.innerWidth;
-
-    const letters = "DAHLIA★♡☠♥01".split("");
-    const fontSize = 16;
-    const columns = canvas.width / fontSize;
-    const drops = Array.from({ length: columns }).fill(1);
-
-    function draw() {
-      ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-      ctx.fillStyle = "#ff00ff"; // fuxia!
-      ctx.font = fontSize + "px monospace";
-
-      for (let i = 0; i < drops.length; i++) {
-        const text = letters[Math.floor(Math.random() * letters.length)];
-        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-
-        if (drops[i] * fontSize > canvas.height || Math.random() > 0.975) {
-          drops[i] = 0;
-        }
-        drops[i]++;
-      }
-    }
-
-    setInterval(draw, 33);
-  </script>
+  <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 </body>
 </html>
