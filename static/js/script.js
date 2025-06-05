@@ -1,12 +1,20 @@
-console.log("Script caricato"); // <-- controlla che lo vedi nella console
+document.getElementById("clickButton").addEventListener("click", () => {
+  const audio = document.getElementById("audio");
+  audio.play();
 
-function activateMatrix() {
-  console.log("Funzione activateMatrix attivata"); // debug
-
-  document.querySelectorAll('.text-block p').forEach(p => {
-    if (!p.classList.contains('matrix')) {
-      p.classList.add('hidden');
-    }
-  });
-}
-
+  // Richiesta per ottenere l'elenco immagini
+  fetch("/images")
+    .then(res => res.json())
+    .then(imageList => {
+      imageList.forEach((imgSrc, index) => {
+        setTimeout(() => {
+          const img = document.createElement("img");
+          img.src = imgSrc;
+          img.style.top = Math.random() * window.innerHeight + "px";
+          img.style.left = Math.random() * window.innerWidth + "px";
+          img.style.zIndex = 100;
+          document.getElementById("imageContainer").appendChild(img);
+        }, index * 300); // ritardo tra immagini
+      });
+    });
+});
