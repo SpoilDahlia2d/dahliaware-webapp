@@ -1,11 +1,12 @@
+from flask import Flask, render_template, jsonify, request
 import os
-from flask import Flask, render_template, send_from_directory, jsonify
 
 app = Flask(__name__)
 
 @app.route('/')
-def home():
-    return render_template('index.html')
+def index():
+    user_ip = request.remote_addr
+    return render_template('index.html', ip=user_ip)
 
 @app.route('/get-images')
 def get_images():
