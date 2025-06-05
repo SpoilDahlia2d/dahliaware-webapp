@@ -4,7 +4,7 @@ import os
 app = Flask(__name__, static_folder="static")
 
 # Percorso della cartella immagini
-IMAGE_FOLDER = os.path.join("static", "pubblic")
+IMAGE_FOLDER = os.path.join("static", "images")
 ALLOWED_EXTENSIONS = {".png", ".jpg", ".jpeg", ".gif", ".webp"}
 
 @app.route("/")
@@ -15,7 +15,7 @@ def home():
 @app.route("/images")
 def list_images():
     files = os.listdir(IMAGE_FOLDER)
-    images = [f"/static/pubblic/{f}" for f in files if os.path.splitext(f)[1].lower() in ALLOWED_EXTENSIONS]
+    images = [f"/static/images/{f}" for f in files if os.path.splitext(f)[1].lower() in ALLOWED_EXTENSIONS]
     return jsonify(images)
 
 # Serve file audio se necessario (opzionale)
