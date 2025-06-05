@@ -1,31 +1,65 @@
 body {
-  background-color: black;
-  color: #ff00ff; /* fuxia */
-  font-family: 'Courier New', monospace;
+  margin: 0;
+  overflow: hidden;
+  background: black;
+  font-family: monospace;
+  color: fuchsia;
+}
+
+canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 0;
+}
+
+.center-text {
+  position: fixed;
+  z-index: 10;
+  top: 40%;
+  width: 100%;
   text-align: center;
-  padding: 2rem;
+  color: fuchsia;
 }
 
-.matrix {
-  color: #ff00ff; /* matrix rosa */
-  font-weight: bold;
-}
-
-.hidden {
-  display: none;
-}
-
-button {
-  background: #ff00ff;
+#clickBtn {
+  background: fuchsia;
   color: black;
+  font-size: 2em;
+  padding: 1em 2em;
   border: none;
-  padding: 1rem 2rem;
-  font-size: 1.2rem;
+  border-radius: 8px;
   cursor: pointer;
-  margin-bottom: 2rem;
-  transition: background 0.3s;
 }
 
-button:hover {
-  background: #cc00cc;
+.sub, .ip {
+  margin: 10px 0;
+  font-size: 1em;
 }
+
+#image-container img {
+  position: fixed;
+  width: 120px;
+  top: 0;
+  left: 0;
+  z-index: 20;
+  animation: float 2s linear forwards;
+}
+
+@keyframes float {
+  to {
+    top: 100%;
+    opacity: 0;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  #clickBtn {
+    font-size: 1.2em;
+    padding: 0.8em 1.5em;
+  }
+  .sub, .ip {
+    font-size: 0.8em;
+  }
+}
+
