@@ -3,20 +3,17 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Goddess Dahlia World</title>
+  <title>Dahlia Matrix</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
   <canvas id="matrix"></canvas>
 
-  <div class="center-text" id="main-text">
-    <button id="clickBtn">CLICK</button>
-    <p class="sub">To become obsessed with DAHLIA</p>
-    <p class="ip">your IP: {{ ip }}</p>
+  <div class="center-text" id="text-block">
+    <h1 id="click-button">CLICK</h1>
+    <p id="obsession-text">to become obsessed with DAHLIA</p>
+    <p id="ip-text">your IP: {{ ip }}</p>
   </div>
-
-  <div id="imageContainer" class="image-container"></div>
-  <audio id="audio" src="{{ url_for('static', filename='audio/dahlia.mp3') }}"></audio>
 
   <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 </body>
