@@ -1,19 +1,27 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, send_from_directory, jsonify, request
 import os
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder="static")
 
-@app.route('/')
-def index():
-    return render_template('index.html')
+# Percorso della cartella immagini
+IMAGE_FOLDER = os.path.join("static", "pubblic")
+ALLOWED_EXTENSIONS = {".png", ".jpg", ".jpeg", ".gif", ".webp"}
 
-@app.route('/images')
+@app.route("/")
+def home():
+    user_ip = request.remote_addr
+    return render_template("index.html", ip=user_ip)
+
+@app.route("/images")
 def list_images():
-    image_folder = os.path.join(app.static_folder, 'images')
-    allowed_ext = ('.png', '.jpg', '.jpeg', '.webp', '.gif')
-    files = [f'/static/images/{img}' for img in os.listdir(image_folder) if img.lower().endswith(allowed_ext)]
-    return {'images': files}
+    files = os.listdir(IMAGE_FOLDER)
+    images = [f"/static/pubblic/{f}" for f in files if os.path.splitext(f)[1].lower() in ALLOWED_EXTENSIONS]
+    return jsonify(images)
 
-if __name__ == '__main__':
-    port = int(os.environ.get('PORT', 5000))
-    app.run(host='0.0.0.0', port=port)
+# Serve file audio se necessario (opzionale)
+@app.route("/audio/<filename>")
+def get_audio(filename):
+    return send_from_directory(os.path.join("static", "audio"), filename)
+
+if __name__ == "__main__":
+    app.run(debug=True)
