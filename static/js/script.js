@@ -1,54 +1,42 @@
-const btn = document.getElementById("clickBtn");
-const textBox = document.getElementById("main-text");
-const audio = document.getElementById("audio");
-const container = document.getElementById("image-container");
+let imageList = [];
+let hasStarted = false;
 
-btn.addEventListener("click", () => {
-  textBox.style.display = "none";
+fetch('/get-images')
+  .then(res => res.json())
+  .then(data => {
+    imageList = data;
+  });
+
+document.getElementById("click-button").addEventListener("click", () => {
+  if (hasStarted || imageList.length === 0) return;
+  hasStarted = true;
+
+  // Nasconde testi
+  document.getElementById("click-button").style.display = "none";
+  document.getElementById("obsession-text").style.display = "none";
+  document.getElementById("ip-text").style.display = "none";
+
+  // Avvia audio
+  const audio = new Audio("/static/audio/dahlia.mp3");
   audio.play();
 
-  const extensions = ['.jpg', '.jpeg', '.png', '.gif'];
-  const count = 30;
-
+  // Avvia raffica immagini
   let i = 0;
-  const spawnImage = () => {
+  function spawnImage() {
     const img = document.createElement("img");
-    const ext = extensions[i % extensions.length];
-    img.src = `/static/images/${i}${ext}`;
+    img.src = `/static/images/${imageList[i]}`;
+    img.style.position = "absolute";
     img.style.left = Math.random() * window.innerWidth + "px";
-    container.appendChild(img);
-    i = (i + 1) % count;
-    if (i < count) setTimeout(spawnImage, 100);
-  };
+    img.style.top = Math.random() * window.innerHeight + "px";
+    img.style.width = "150px";
+    img.style.zIndex = 100;
+    document.body.appendChild(img);
+
+    i = (i + 1) % imageList.length;
+    if (i !== 0) {
+      setTimeout(spawnImage, 150); // tempo tra immagini
+    }
+  }
 
   spawnImage();
 });
-
-// Matrix effect
-const canvas = document.getElementById("matrix");
-const ctx = canvas.getContext("2d");
-canvas.height = window.innerHeight;
-canvas.width = window.innerWidth;
-
-const letters = "01D4HLI".split("");
-const fontSize = 14;
-const columns = canvas.width / fontSize;
-const drops = Array(Math.floor(columns)).fill(1);
-
-function drawMatrix() {
-  ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
-  ctx.fillStyle = "fuchsia";
-  ctx.font = fontSize + "px monospace";
-
-  for (let i = 0; i < drops.length; i++) {
-    const text = letters[Math.floor(Math.random() * letters.length)];
-    ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-
-    if (drops[i] * fontSize > canvas.height && Math.random() > 0.975)
-      drops[i] = 0;
-
-    drops[i]++;
-  }
-}
-setInterval(drawMatrix, 33);
