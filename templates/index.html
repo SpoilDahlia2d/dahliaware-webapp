@@ -4,17 +4,24 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Dahlia Matrix</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
 </head>
 <body>
-  <canvas id="matrix"></canvas>
+  <canvas id="matrix-canvas"></canvas>
 
-  <div class="center-text" id="text-block">
-    <h1 id="click-button">CLICK</h1>
-    <p id="obsession-text">to become obsessed with DAHLIA</p>
-    <p id="ip-text">your IP: {{ ip }}</p>
+  <div id="interface">
+    <div class="texts">
+      <h1 id="click-button">CLICK</h1>
+      <p id="sub-text">to become obsessed with DAHLIA</p>
+      <p id="ip-text">your IP is being logged...</p>
+    </div>
   </div>
 
+  <audio id="audio" src="{{ url_for('static', filename='audio/start.mp3') }}"></audio>
+
+  <script>
+    const imageList = {{ image_files|tojson }};
+  </script>
   <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 </body>
 </html>
