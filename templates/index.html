@@ -1,25 +1,62 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Dahlia Matrix</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <style>
+    body {
+      background-color: black;
+      color: #ff00ff; /* fuxia */
+      font-family: 'Courier New', monospace;
+      text-align: center;
+      padding: 2rem;
+    }
+
+    .matrix {
+      color: #ff00ff; /* matrix fuxia */
+      font-weight: bold;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    button {
+      background: #ff00ff;
+      color: black;
+      border: none;
+      padding: 1rem 2rem;
+      font-size: 1.2rem;
+      cursor: pointer;
+      margin-bottom: 2rem;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background: #cc00cc;
+    }
+  </style>
 </head>
 <body>
-  <canvas id="matrix"></canvas>
+  <button onclick="activateMatrix()">CLICK</button>
 
-  <div class="overlay">
-    <p class="main-text">Welcome to Goddess Dahlia World</p>
-    <p class="sub-text">DAHLIAWARE V3</p>
-    <button id="click-button">CLICK</button>
-    <p class="hint-text">to become obsessed with DAHLIA</p>
-    <div id="counter">0</div>
+  <div class="text-block">
+    <p>Welcome to my hypnotic trap</p>
+    <p>This world is now yours, Dahlia.</p>
+    <p class="matrix">[ ACCESS GRANTED ]</p>
+    <p class="matrix">IP TRACE: 192.168.0.69</p>
   </div>
 
-  <audio id="dahliaAudio" src="{{ url_for('static', filename='audio/dahlia.mp3') }}"></audio>
-  <div class="image-container" id="imageContainer"></div>
-
-  <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+  <script>
+    function activateMatrix() {
+      // Nasconde tutti i <p> tranne quelli con la classe "matrix"
+      document.querySelectorAll('.text-block p').forEach(p => {
+        if (!p.classList.contains('matrix')) {
+          p.classList.add('hidden');
+        }
+      });
+    }
+  </script>
 </body>
 </html>
